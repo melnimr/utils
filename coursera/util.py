@@ -124,6 +124,30 @@ def print_confidence_intervals(class_labels, statistics):
         df.loc[class_labels[i]] = ["%.2f (%.2f-%.2f)" % (mean, min_, max_)]
     return df
 
+
+def bootstrap_auc(y, pred, classes, bootstraps = 100, fold_size = 1000):
+    statistics = np.zeros((len(classes), bootstraps))
+
+    for c in range(len(classes)):
+        df = pd.DataFrame(columns=['y', 'pred'])
+        df.loc[:, 'y'] = y[:, c]
+        df.loc[:, 'pred'] = pred[:, c]
+        # get positive examples for stratified sampling
+        df_pos = df[df.y == 1]
+        df_neg = df[df.y == 0]
+        prevalence = len(df_pos) / len(df)
+        for i in arange(bootstraps):
+            # stratified sampling of positive and negative examples
+            pos_sample = df_pos.sample(n = int(fold_size * prevalence), replace=True)
+            neg_sample = df_neg.sample(n = int(fold_size * (1-prevalence)), replace=True)
+
+            y_sample = np.concatenate([pos_sample.y.values, neg_sample.y.values])
+            pred_sample = np.concatenate([pos_sample.pred.values, neg_sample.pred.values])
+            score = roc_auc_score(y_sample, pred_sample)
+            statistics[c][i] = score
+    return statistics
+
+statistics = bootstrap_auc(y, pred, class_labels)
 #######
 #######
 
