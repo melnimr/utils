@@ -108,3 +108,103 @@ def get_roc_curve(labels, predicted_vals, generator):
             )
     plt.show()
     return auc_roc_vals
+
+#######
+#######
+
+# UNQ_C1 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
+def true_positives(y, pred, th=0.5):
+    """
+    Count true positives.
+
+    Args:
+        y (np.array): ground truth, size (n_examples)
+        pred (np.array): model output, size (n_examples)
+        th (float): cutoff value for positive prediction from model
+    Returns:
+        TP (int): true positives
+    """
+    TP = 0
+    
+    # get thresholded predictions
+    thresholded_preds = pred >= th
+
+    # compute TP
+    TP = np.sum((y == 1) & (thresholded_preds == 1))
+    
+    return TP
+
+def true_negatives(y, pred, th=0.5):
+    """
+    Count true negatives.
+
+    Args:
+        y (np.array): ground truth, size (n_examples)
+        pred (np.array): model output, size (n_examples)
+        th (float): cutoff value for positive prediction from model
+    Returns:
+        TN (int): true negatives
+    """
+    TN = 0
+    
+    # get thresholded predictions
+    thresholded_preds = pred >= th
+
+    ### START CODE HERE (REPLACE INSTANCES OF 'None' with your code) ###
+    
+    # compute TN
+    TN = None
+    
+    ### END CODE HERE ###
+    
+    return TN
+
+def false_positives(y, pred, th=0.5):
+    """
+    Count false positives.
+
+    Args:
+        y (np.array): ground truth, size (n_examples)
+        pred (np.array): model output, size (n_examples)
+        th (float): cutoff value for positive prediction from model
+    Returns:
+        FP (int): false positives
+    """
+    FP = 0
+    
+    # get thresholded predictions
+    thresholded_preds = pred >= th
+    
+    ### START CODE HERE (REPLACE INSTANCES OF 'None' with your code) ###
+
+    # compute FP
+    FP = None
+    
+    ### END CODE HERE ###
+    
+    return FP
+
+def false_negatives(y, pred, th=0.5):
+    """
+    Count false positives.
+
+    Args:
+        y (np.array): ground truth, size (n_examples)
+        pred (np.array): model output, size (n_examples)
+        th (float): cutoff value for positive prediction from model
+    Returns:
+        FN (int): false negatives
+    """
+    FN = 0
+    
+    # get thresholded predictions
+    thresholded_preds = pred >= th
+
+    ### START CODE HERE (REPLACE INSTANCES OF 'None' with your code) ###
+    
+    # compute FN
+    FN = None
+    
+    ### END CODE HERE ###
+    
+    return FN
