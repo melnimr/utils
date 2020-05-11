@@ -109,6 +109,21 @@ def get_roc_curve(labels, predicted_vals, generator):
     plt.show()
     return auc_roc_vals
 
+
+######
+######
+
+
+
+def print_confidence_intervals(class_labels, statistics):
+    df = pd.DataFrame(columns=["Mean AUC (CI 5%-95%)"])
+    for i in range(len(class_labels)):
+        mean = statistics.mean(axis=1)[i]
+        max_ = np.quantile(statistics, .95, axis=1)[i]
+        min_ = np.quantile(statistics, .05, axis=1)[i]
+        df.loc[class_labels[i]] = ["%.2f (%.2f-%.2f)" % (mean, min_, max_)]
+    return df
+
 #######
 #######
 
