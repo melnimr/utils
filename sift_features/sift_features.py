@@ -43,8 +43,9 @@ def show_sift_features(gray_img, color_img, kp):
     return plt.imshow(cv2.drawKeypoints(gray_img, kp, color_img.copy()))
 
 
-
-
+img = plt.imread('/Users/neo/wellth-wrk/desert_oasis/images/5053jCoi2AbTKzwonimqd4fWGxwqPyQS.jpg')
+lesion_img_gray = to_gray(img)
+plt.imshow(lesion_img_gray, cmap='gray');
 
 # generate SIFT keypoints and descriptors
 lesion_img_kp, lesion_img_desc = gen_sift_features(lesion_img_gray)
